@@ -122,6 +122,17 @@ const app = new Vue({
           this.result_merchants.push(data_merchants[index]);
         }
       }
+    },
+    calculateResultBySearch: function (event) {
+      let data_merchants = this.data.merchants;
+      let search_name = event.target[1].value;
+      this.result_merchants = [];
+      for (let index = 0; index < data_merchants.length; index++) {
+        if (data_merchants[index].shopNameTH.includes(search_name)) {
+          console.log(data_merchants[index]);
+          this.result_merchants.push(data_merchants[index]);
+        }
+      }
     }
   }
 

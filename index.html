@@ -23,7 +23,7 @@
           <img src="https://search-merchant.คนละครึ่ง.com/images/halfhalf-logo.png" class="w-75">
         </a>
        
-        <div class="input-group form-inline">
+        <form class="input-group form-inline" v-on:submit.prevent="calculateResultBySearch">
           <div class="input-group-prepend">
             <div class="form-group">
               <select class="form-control rounded-0" id="province" v-on:change="selectProvince">
@@ -34,13 +34,14 @@
             </div>
           </div>
           <input type="text" placeholder="ค้นหา ชื่อ ร้านอาหาร และเครื่องดื่ม ร้านธงฟ้า ร้านค้า OTOP และสินค้าทั่วไป"
-            class="form-control">
+            class="form-control" value="" name="search_name">
           <div class="input-group-append">
-            <button class="btn border" type="button">
+            <button class="btn border" type="submit" >
               <i class="fas fa-search color-blue"></i>
             </button>
           </div>
-        </div>
+        </form>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-filter color-blue"></i>
@@ -53,7 +54,7 @@
 
     <!-- Breadcrumb  -->
     <div class="bg-blue text-white p-3">
-      <span><u>หน้าแรก</u> / <b>ค้นหา</b> </span>
+      <span><a href="./" class="text-white"> <u>หน้าแรก</u> </a> / <b>ค้นหา</b> </span>
     </div>
 
     <!-- content -->
@@ -112,7 +113,7 @@
                   <input type="number" class="form-control form-control-sm rounded" min="0" placeholder="ราคาสูงสุด">
                 </div>
               </div>
-              <div class="btn btn-block btn-sm color-light-blue border-light-blue rounded mt-1 text-light-blue">ตกลง</div>
+              <button class="btn btn-block btn-sm color-light-blue border-light-blue rounded mt-1 text-light-blue">ตกลง</button>
             </div>
 
 
