@@ -8,8 +8,7 @@
   <link rel="shortcut icon" href="https://search-merchant.คนละครึ่ง.com/images/halfhalf-logo-mini.png"
     type="image/x-icon">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -17,16 +16,16 @@
   <div id="app">
     <!-- navbar -->
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white p-1">
-      <div class="container">
+      <div class="container d-flex justify-content-center bg-white" id="navbar">
         <a class="navbar-brand" href="./index.html">
-          <img src="https://search-merchant.คนละครึ่ง.com/images/halfhalf-logo.png" class="w-75">
+          <img id="logo-halfhalf" src="https://search-merchant.คนละครึ่ง.com/images/halfhalf-logo.png">
         </a>
 
-        <form class="input-group form-inline" v-on:submit.prevent="calculateResultBySearch">
-          <div class="input-group-prepend">
+        <form class="form-inline" v-on:submit.prevent="calculateResultBySearch">
+          <div class="input-group-prepend" id="navProvince">
             <div class="form-group">
-              <select class="form-control rounded-0" id="province" v-on:change="selectProvince" v-model="selected_province">
+              <select class="form-control rounded-0" id="province" v-on:change="selectProvince"
+                v-model="selected_province">
                 <option value="-1" selected>พื้นที่ใกล้ฉัน</option>
                 <option value="-1">สถานที่ทั้งหมด</option>
                 <option v-for="(province, index) in data.provinces" :value="index">{{ province }}</option>
@@ -34,7 +33,7 @@
             </div>
           </div>
           <input type="text" placeholder="ค้นหา ชื่อ ร้านอาหาร และเครื่องดื่ม ร้านธงฟ้า ร้านค้า OTOP และสินค้าทั่วไป"
-            class="form-control" value="" name="search_name">
+            class="form-control" value="" name="search_name" v-model="search_input">
           <div class="input-group-append">
             <button class="btn border" type="submit">
               <i class="fas fa-search color-blue"></i>
@@ -42,14 +41,10 @@
           </div>
         </form>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button id="navFilterBtn" class="btn ">
           <i class="fas fa-filter color-blue"></i>
         </button>
       </div>
-
-
-    </nav>
 
 
     <!-- Breadcrumb  -->
@@ -63,7 +58,7 @@
 
       <div class="row">
         <!-- sidebar -->
-        <div class="col-sm-0 col-md-5 col-lg-3 d-sm-none d-md-block">
+        <div class="col-xs-0 col-sm-0 col-md-5 col-lg-3 hidden-xs hidden-sm" id="sidebar">
           <div class="card p-3 border mt-5 rounded-0">
 
             <!-- categories -->
@@ -89,7 +84,8 @@
             <div id="province">
               <p class="font-weight-bold mt-4">จังหวัด/ใกล้ฉัน</p>
               <div class="form-group">
-                <select class="form-control form-control-sm rounded-0" id="province" v-on:change="selectProvince" v-model="selected_province">
+                <select class="form-control form-control-sm rounded-0" id="province" v-on:change="selectProvince"
+                  v-model="selected_province">
                   <option value="-1" selected>พื้นที่ใกล้ฉัน</option>
                   <option value="-1">สถานที่ทั้งหมด</option>
                   <option v-for="(province, index) in data.provinces" :value="index">{{ province }}</option>
@@ -143,7 +139,7 @@
         </div>
 
         <!-- result -->
-        <div class="col-sm-12 col-md-7 col-lg-9">
+        <div class="col">
           <div class="mt-5" v-if="result_merchants.length>0">
             <div class="card mt-2" v-for="merchants in result_merchants">
               <div class="card-body">
@@ -163,8 +159,7 @@
                       {{ merchants.addressProvinceName }}</p>
                     <hr>
                     <p class="card-text" v-html="merchants.highlightText"></p>
-                    <p>สินค้าแนะนำ : <span
-                        v-for="recomm in merchants.recommendedItems">{{ recomm }}</span></p>
+                    <p>สินค้าแนะนำ : <span v-for="recomm in merchants.recommendedItems">{{ recomm }}</span></p>
                     <p>สิ่งอำนวยความสะดวก : <span v-for="faci in merchants.facilities">{{ faci }} </span> </p>
                   </div>
                 </div>
@@ -210,12 +205,10 @@
 
 </body>
 <!-- script -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="./assets/js/res.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script> -->
