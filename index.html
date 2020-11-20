@@ -22,7 +22,7 @@
         <a class="navbar-brand" href="./index.html">
           <img src="https://search-merchant.คนละครึ่ง.com/images/halfhalf-logo.png" class="w-75">
         </a>
-       
+
         <form class="input-group form-inline" v-on:submit.prevent="calculateResultBySearch">
           <div class="input-group-prepend">
             <div class="form-group">
@@ -36,7 +36,7 @@
           <input type="text" placeholder="ค้นหา ชื่อ ร้านอาหาร และเครื่องดื่ม ร้านธงฟ้า ร้านค้า OTOP และสินค้าทั่วไป"
             class="form-control" value="" name="search_name">
           <div class="input-group-append">
-            <button class="btn border" type="submit" >
+            <button class="btn border" type="submit">
               <i class="fas fa-search color-blue"></i>
             </button>
           </div>
@@ -102,18 +102,22 @@
             <!-- price -->
             <div id="price">
               <p class="font-weight-bold mt-4">ช่วงราคาสินค้า(บาท)</p>
-              <div class="row">
-                <div class="col">
-                  <input type="number" class="form-control form-control-sm rounded" min="0" placeholder="ราคาต่ำสุด">
+              <form>
+                <div class="row">
+                  <div class="col">
+                    <input type="number" class="form-control form-control-sm rounded" min="0" placeholder="ราคาต่ำสุด">
+                  </div>
+                  <div class="col-1">
+                    <p>-</p>
+                  </div>
+                  <div class="col">
+                    <input type="number" class="form-control form-control-sm rounded" min="0" placeholder="ราคาสูงสุด">
+                  </div>
                 </div>
-                <div class="col-1">
-                  <p>-</p>
-                </div>
-                <div class="col">
-                  <input type="number" class="form-control form-control-sm rounded" min="0" placeholder="ราคาสูงสุด">
-                </div>
-              </div>
-              <button class="btn btn-block btn-sm color-light-blue border-light-blue rounded mt-1 text-light-blue">ตกลง</button>
+                <button
+                  class="btn btn-block btn-sm color-light-blue border-light-blue rounded mt-1 text-light-blue">ตกลง</button>
+              </form>
+
             </div>
 
 
