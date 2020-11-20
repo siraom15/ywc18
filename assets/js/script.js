@@ -11,7 +11,7 @@ const app = new Vue({
     selected_subcategory: null,
     selected_subcategoryName: "ทั้งหมด",
 
-    selected_province: null,
+    selected_province: -1,
     selected_provinceName: null,
 
     result_merchants: [],
@@ -33,16 +33,15 @@ const app = new Vue({
       this.showAllMerchants();
     },
     selectProvince: async function (event) {
-      if(event.target.value==-1){
+      if (event.target.value == -1) {
         this.showAllMerchants();
-        console.log("Show All");
-      }else{
+        this.selected_province = -1;
+      } else {
         this.selected_provinceName = this.data.provinces[event.target.value];
         this.calculateResultByProvince();
-      console.log("selected province : " + this.selected_provinceName);
-
+        this.selected_province = event.target.value;
       }
-     
+
 
     },
     selectAllCategory: async function (event) {
@@ -52,31 +51,26 @@ const app = new Vue({
 
       this.subcategory = null;
       this.selected_subcategory = null;
-      this.selected_subcategoryName = "ทั้งหมด",
-        console.log("select ทั้งหมด ");
+      this.selected_subcategoryName = "ทั้งหมด";
 
     },
 
     selectSubCategory: async function (event) {
 
-      // console.log(event.target.value);
-      // this.selected_subcategory = this.data.categories[event.target.value].subcategories;
-      this.selected_subcategoryName = event.target.value;
-      console.log("selected_subcatName : " + this.selected_subcategoryName);
-      this.calculateResultBySubCategory();
-      // console.log("selected_cat : " + this.selected_subcategory);
+      if (event.target.value == -1) {
+        this.calculateResultByCategory();
 
+      } else {
+        this.selected_subcategoryName = event.target.value;
+        console.log("selected_subcatName : " + this.selected_subcategoryName);
+        this.calculateResultBySubCategory();
+      }
     },
     showSubCategory: async function (event) {
 
-
       this.selected_category = this.data.categories[event.target.value];
-      // console.log("selected_cat : " + this.selected_category);
       this.selected_categoryName = this.data.categories[event.target.value].name
-      // console.log("selected_catName : " + this.selected_categoryName);
-
       this.subcategory = this.data.categories[event.target.value].subcategories;
-      // console.log("All subcat:" + this.subcategory);
       this.calculateResultByCategory();
     },
     fetchData: async () => {
@@ -89,7 +83,7 @@ const app = new Vue({
           console.log(error);
         })
     },
-    showAllMerchants :  async function (...args){
+    showAllMerchants: async function (...args) {
       let data = await this.fetchData();
       this.result_merchants = data.merchants;
     },
@@ -124,13 +118,19 @@ const app = new Vue({
     },
     calculateResultBySearch: function (event) {
       let data_merchants = this.data.merchants;
-      let search_name = event.target[1].value;
+      let search_name = event.target[1].value.trim();
+
       this.result_merchants = [];
       for (let index = 0; index < data_merchants.length; index++) {
         if (data_merchants[index].shopNameTH.includes(search_name)) {
           this.result_merchants.push(data_merchants[index]);
         }
       }
+    },
+    calculateResultByPrice: function (event) {
+      let lowPrice = event.target[0].value;
+      let maxPrice = event.target[1].value;
+      
     }
   }
 
