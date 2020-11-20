@@ -34,7 +34,7 @@ $(window).on("resize", function () {
         $('#navbar').addClass('container-fluid');
         $('#navbar').removeClass('container');
 
-        $('#sidebar').hide();
+      
 
     }
     else {
@@ -46,8 +46,7 @@ $(window).on("resize", function () {
 
         $('#navbar').addClass('container');
         $('#navbar').removeClass('container-fluid');
-        $('#sidebar').show();
-
+        
     }
 });
 
