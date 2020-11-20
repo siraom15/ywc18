@@ -10,28 +10,48 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
   <div id="app">
     <!-- navbar -->
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
-      <a class="navbar-brand" href="/">
-        <img src="https://search-merchant.คนละครึ่ง.com/images/halfhalf-logo.png" alt="" srcset="">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fas fa-filter color-blue"></i>
-      </button>
-      <!-- <form class="form-inline">
-        <input class="form-control" type="search" placeholder="Search">
-        <button class="btn btn-outline-success " type="submit"><i class="fas fa-search"></i></button>
-      </form> -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white p-1">
+      <div class="container">
+        <a class="navbar-brand" href="./index.html">
+          <img src="https://search-merchant.คนละครึ่ง.com/images/halfhalf-logo.png" class="w-75">
+        </a>
+       
+        <div class="input-group form-inline">
+          <div class="input-group-prepend">
+            <div class="form-group">
+              <select class="form-control rounded-0" id="province" v-on:change="selectProvince">
+                <option value="-1">พื้นที่ใกล้ฉัน</option>
+                <option value="-1">สถานที่ทั้งหมด</option>
+                <option v-for="(province, index) in data.provinces" :value="index">{{ province }}</option>
+              </select>
+            </div>
+          </div>
+          <input type="text" placeholder="ค้นหา ชื่อ ร้านอาหาร และเครื่องดื่ม ร้านธงฟ้า ร้านค้า OTOP และสินค้าทั่วไป"
+            class="form-control">
+          <div class="input-group-append">
+            <button class="btn border" type="button">
+              <i class="fas fa-search color-blue"></i>
+            </button>
+          </div>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-filter color-blue"></i>
+        </button>
+      </div>
+
+
     </nav>
 
 
-    <!-- location -->
+    <!-- Breadcrumb  -->
     <div class="bg-blue text-white p-3">
       <span><u>หน้าแรก</u> / <b>ค้นหา</b> </span>
     </div>
@@ -68,7 +88,7 @@
             <div id="province">
               <p class="font-weight-bold mt-4">จังหวัด/ใกล้ฉัน</p>
               <div class="form-group">
-                <select class="form-control rounded-0" id="province" v-on:change="selectProvince">
+                <select class="form-control form-control-sm rounded-0" id="province" v-on:change="selectProvince">
                   <option value="-1">พื้นที่ใกล้ฉัน</option>
                   <option value="-1">สถานที่ทั้งหมด</option>
                   <option v-for="(province, index) in data.provinces" :value="index">{{ province }}</option>
@@ -83,16 +103,16 @@
               <p class="font-weight-bold mt-4">ช่วงราคาสินค้า(บาท)</p>
               <div class="row">
                 <div class="col">
-                  <input type="number" class="form-control rounded" min="0" placeholder="ราคาต่ำสุด">
+                  <input type="number" class="form-control form-control-sm rounded" min="0" placeholder="ราคาต่ำสุด">
                 </div>
                 <div class="col-1">
                   <p>-</p>
                 </div>
                 <div class="col">
-                  <input type="number" class="form-control rounded" min="0" placeholder="ราคาสูงสุด">
+                  <input type="number" class="form-control form-control-sm rounded" min="0" placeholder="ราคาสูงสุด">
                 </div>
               </div>
-              <div class="btn btn-block  color-light-blue border-light-blue rounded mt-1 text-light-blue">ตกลง</div>
+              <div class="btn btn-block btn-sm color-light-blue border-light-blue rounded mt-1 text-light-blue">ตกลง</div>
             </div>
 
 
@@ -128,7 +148,7 @@
                   <div class="col">
                     <h5 class="card-title font-weight-bold">{{ merchants.shopNameTH }} <span class="badge badge-success"
                         v-if="merchants.isOpen === 'Y'">เปิดอยู่</span> </h5>
-                    <p class="card-text">
+                    <p class="card-text mt-1">
                       {{ merchants.subcategoryName }}
                       <span v-if="data.priceRange[merchants.priceLevel] != undefined">
                         | ช่วงราคาสินค้า {{ data.priceRange[merchants.priceLevel] }}
@@ -169,8 +189,8 @@
           </div>
           <div class="mt-5" v-else>
             <div class="position-relative">
-              <div class="centering">
-                <h3>ไม่พบสถานที่ที่คุณกำลังหา</h3>
+              <div class="centering h-100">
+                <h1>ไม่พบสถานที่ที่คุณกำลังหา</h1>
                 <p>ร้านค้าที่ท่านค้นหาอาจไม่ได้เข้าร่วมโครงการ คนละครึ่ง</p>
               </div>
             </div>
@@ -193,6 +213,6 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
-<script src="./script.js"></script>
+<script src="assets/js/script.js"></script>
 
 </html>

@@ -6,8 +6,12 @@
 }
 body{
     font-family: 'Kanit', sans-serif;
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(166,212,239,1) 100%);
+    background-attachment: fixed;
+    /* background-image: url("../img/result-bg.png"); */
+    background-repeat: no-repeat;
 }
-
 .bg-blue{
     background-color: var(--main-color);
 }
@@ -41,7 +45,7 @@ body{
   }
 .centering{
     position: absolute;
-    top:50%;
+    top:100%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%)
