@@ -1,0 +1,48 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap');
+:root{
+    --main-color:rgb(38, 48, 110);
+    --light-blue : #1890ff;
+}
+body{
+    font-family: 'Kanit', sans-serif;
+}
+
+.bg-blue{
+    background-color: var(--main-color);
+}
+.color-blue{
+    color : var(--main-color);
+}
+.center{
+    margin: auto;
+    width: 50%;
+}
+.color-light-blue{
+    color:var(--light-blue);
+}
+.text-light-blue{
+    color:var(--light-blue);
+}
+.border-light-blue{
+    border-color: var(--light-blue);
+}
+::selection {
+    color: #fff;
+    background: var(--light-blue);
+}
+.text-bold{
+    font-weight: 900 !important;
+}
+.img-res {
+    /* width: 100%; */
+    max-width: 40%;
+    height: auto;
+  }
+  .centering{
+      position: absolute;
+      top:50%;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%)
+  }

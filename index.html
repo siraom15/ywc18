@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คนละครึ่ง</title>
+  <link rel="shortcut icon" href="https://search-merchant.คนละครึ่ง.com/images/halfhalf-logo-mini.png"
+    type="image/x-icon">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- navbar -->
+  <div id="app">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <a class="navbar-brand" href="/">
+        <img src="https://search-merchant.คนละครึ่ง.com/images/halfhalf-logo.png" alt="" srcset="">
+      </a>
+
+      <!-- <form class="form-inline">
+        <input class="form-control" type="search" placeholder="Search">
+        <button class="btn btn-outline-success " type="submit"><i class="fas fa-search"></i></button>
+      </form> -->
+    </nav>
+    <div class="bg-blue text-white p-3">
+      <span><u>หน้าแรก</u> / <b>ค้นหา</b> </span>
+    </div>
+    <!-- content -->
+    <div id="content" class="container-fluid">
+      <h5 class="mt-3">ผลการค้นหา {{ selected_categoryName }} ทั้งหมด</h5>
+
+      <div class="row">
+        <div class="col-5">
+          <div class="card p-3 border mt-5 rounded-0">
+
+            <!-- categories -->
+            <p class="font-weight-bold">ประเภทร้านค้า</p>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="categories" id="cat" v-on:click="selectAllCategory"
+                checked>
+              <label class="form-check-label" for="cat">
+                ทั้งหมด
+              </label>
+            </div>
+
+            <div v-for="(categories, index) in data.categories" class="form-check">
+              <input class="form-check-input" type="radio" name="categories" :value="index" :id="'cat-'+index"
+                v-on:click="showSubCategory">
+              <label class="form-check-label" :for="'cat-'+index">
+                {{ categories.name }}
+              </label>
+            </div>
+
+
+            <!-- Province -->
+            <div id="province">
+              <p class="font-weight-bold mt-4">ประเภทร้านค้า</p>
+              <div class="form-group">
+                <select class="form-control rounded-0" id="province" v-on:change="selectProvince">
+                  <option>พื้นที่ใกล้ฉัน</option>
+                  <option>สถานที่ทั้งหมด</option>
+                  <option v-for="(province, index) in data.provinces" :value="index">{{ province }}</option>
+                </select>
+              </div>
+            </div>
+
+
+
+            <!-- price -->
+            <div id="price">
+              <p class="font-weight-bold mt-4">ช่วงราคาสินค้า(บาท)</p>
+              <div class="row">
+                <div class="col">
+                  <input type="number" name="" id="" class="form-control rounded" min="0">
+                </div>
+                <div class="col-1">
+                  <p>-</p>
+                </div>
+                <div class="col">
+                  <input type="number" name="" id="" class="form-control rounded" min="0">
+                </div>
+              </div>
+              <div class="btn btn-block  color-light-blue border-light-blue rounded mt-1 text-light-blue">ตกลง</div>
+            </div>
+
+
+            <!-- sub category -->
+            <div id="subcate" v-if="subcategory!=null">
+              <p class="font-weight-bold mt-4">ประเภท{{ selected_categoryName }}</p>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="subcategories" id="subcate_all" checked>
+                <label class="form-check-label" for="subcate_all">
+                  ทั้งหมด
+                </label>
+              </div>
+              <div v-for="(subcate, index) in subcategory" class="form-check">
+                <input class="form-check-input" type="radio" name="subcategories" :value="subcate"
+                  :id="'sub-cat-'+index" v-on:click="selectSubCategory">
+                <label class="form-check-label" :for="'sub-cat-'+index">
+                  {{ subcate }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- result -->
+        <div class="col-7">
+          <div class="mt-5" v-if="result_merchants.length>0">
+            <div class="card mb-2" v-for="merchants in result_merchants">
+              <img class="card-img-top img-res" :src="merchants.coverImageId" alt="รูปร้านค้า">
+              <div class="card-body">
+                <h5 class="card-title font-weight-bold">{{ merchants.shopNameTH }} <span class="badge badge-success"
+                    v-if="merchants.isOpen === 'Y'">เปิดอยู่</span> </h5>
+                <p class="card-text">
+                  {{ merchants.subcategoryName }}
+                  <span v-if="data.priceRange[merchants.priceLevel] != undefined">
+                    | ช่วงราคาสินค้า {{ data.priceRange[merchants.priceLevel] }} 
+                  </span>
+                  | {{ merchants.addressDistrictName }}
+                  {{ merchants.addressProvinceName }}</p>
+                <hr>
+                <p class="card-text">{{ merchants.highlightText }}</p>
+                <p><b class="text-bold">สินค้าแนะนำ</b>: <span v-for="recomm in merchants.recommendedItems">{{ recomm }}</span></p>
+                <p>สิ่งอำนวยความสะดวก : <span v-for="faci in merchants.facilities">{{ faci }} </span> </p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5" v-else>
+            <div class="position-relative">
+              <div class="centering">
+                <h3>ไม่พบสถานที่ที่คุณกำลังหา</h3>
+                <p>ร้านค้าที่ท่านค้นหาอาจไม่ได้เข้าร่วมโครงการ คนละครึ่ง</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+<!-- script -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<script src="./script.js"></script>
+
+</html>
