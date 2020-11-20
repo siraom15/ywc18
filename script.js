@@ -30,10 +30,20 @@ const app = new Vue({
   methods: {
     selectAllProvince: async function (event) {
       this.selected_provinceName = null;
+      this.showAllMerchants();
     },
     selectProvince: async function (event) {
-      this.selected_provinceName = this.data.provinces[event.target.value];
+      if(event.target.value==-1){
+        this.showAllMerchants();
+        console.log("Show All");
+      }else{
+        this.selected_provinceName = this.data.provinces[event.target.value];
+        this.calculateResultByProvince();
       console.log("selected province : " + this.selected_provinceName);
+
+      }
+     
+
     },
     selectAllCategory: async function (event) {
 
@@ -79,6 +89,10 @@ const app = new Vue({
           console.log(error);
         })
     },
+    showAllMerchants :  async function (...args){
+      let data = await this.fetchData();
+      this.result_merchants = data.merchants;
+    },
     calculateResultByCategory: function (...args) {
       let data_merchants = this.data.merchants;
       this.result_merchants = [];
@@ -94,6 +108,16 @@ const app = new Vue({
       for (let index = 0; index < data_merchants.length; index++) {
         console.log(data_merchants[index].subcategoryName);
         if (data_merchants[index].subcategoryName == this.selected_subcategoryName) {
+          this.result_merchants.push(data_merchants[index]);
+        }
+      }
+    },
+    calculateResultByProvince: function (...args) {
+      let data_merchants = this.data.merchants;
+      this.result_merchants = [];
+      for (let index = 0; index < data_merchants.length; index++) {
+        console.log(data_merchants[index].addressProvinceName);
+        if (data_merchants[index].addressProvinceName == this.selected_provinceName) {
           console.log(data_merchants[index]);
           this.result_merchants.push(data_merchants[index]);
         }
