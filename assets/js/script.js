@@ -1,3 +1,4 @@
+Vue.prototype.$filterXSS = filterXSS;
 const app = new Vue({
   el: '#app',
   data: {
@@ -113,15 +114,6 @@ const app = new Vue({
       }
     },
 
-    calculateResultByPrice: async function () {
-      let data_merchants = this.data.merchants;
-      this.result_merchants = [];
-      for (let index = 0; index < data_merchants.length; index++) {
-        if (data_merchants[index].priceLevel == this.selected_priceRange) {
-          this.result_merchants.push(data_merchants[index]);
-        }
-      }
-    },
     calculateResult: async function () {
 
       let data_merchants = this.data.merchants;
@@ -180,7 +172,7 @@ const app = new Vue({
 
 
       // select subcat & price
-      else if (this.selected_subcategoryName != "ทั้งหมด" & this.selected_province != -1 & this.selected_priceRange != -1) {
+      else if (this.selected_subcategoryName != "ทั้งหมด"  & this.selected_priceRange != -1) {
         console.log(this.selected_subcategoryName);
         console.log("เลือก subcat & price");
         for (let index = 0; index < data_merchants.length; index++) {
@@ -265,6 +257,9 @@ const app = new Vue({
 
 
     }
+  },
+  computed:{
+    
   }
 
 })

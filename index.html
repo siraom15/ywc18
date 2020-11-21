@@ -161,7 +161,7 @@
                       | {{ merchants.addressDistrictName }}
                       {{ merchants.addressProvinceName }}</p>
                     <hr>
-                    <p class="card-text" v-html="merchants.highlightText"></p>
+                    <p class="card-text" v-html.safe="$filterXSS(merchants.highlightText)"></p>
                     <p>สินค้าแนะนำ : <span v-for="recomm in merchants.recommendedItems">{{ recomm }}</span></p>
                     <p>สิ่งอำนวยความสะดวก : <span v-for="faci in merchants.facilities">{{ faci }} </span> </p>
                   </div>
@@ -216,7 +216,8 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script> -->
 <!-- <script src="https://unpkg.com/vue@next"></script> -->
-
+<script src="https://rawgit.com/leizongmin/js-xss/master/dist/xss.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sanitize-html/1.27.5/sanitize-html.min.js"></script> -->
 <script src="assets/js/script.js"></script>
 
 </html>
