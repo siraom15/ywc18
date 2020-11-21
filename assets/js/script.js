@@ -68,7 +68,7 @@ const app = new Vue({
         this.selected_categoryName = null;
 
       this.subcategory = null;
-      this.selected_subcategory = null;
+      this.selected_subcategory = -1;
       this.selected_subcategoryName = "ทั้งหมด";
 
     },
@@ -88,7 +88,11 @@ const app = new Vue({
 
       this.selected_category = this.data.categories[event.target.value];
       this.selected_categoryName = this.data.categories[event.target.value].name
+
       this.subcategory = this.data.categories[event.target.value].subcategories;
+
+      this.selected_subcategory = -1;
+
       this.selected_subcategoryName = "ทั้งหมด";
       this.calculateResult();
     },

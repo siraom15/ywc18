@@ -124,14 +124,14 @@
             <div id="subcate" v-if="subcategory!=null">
               <p class="font-weight-bold mt-4">ประเภท{{ selected_categoryName }}</p>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="subcategories" id="subcate_all" checked
+                <input class="form-check-input" type="radio" name="subcategories" id="subcate_all" checked v-model="selected_subcategory"
                   v-on:click="selectSubCategory" value="-1">
                 <label class="form-check-label" for="subcate_all">
                   ทั้งหมด
                 </label>
               </div>
               <div v-for="(subcate, index) in subcategory" class="form-check">
-                <input class="form-check-input" type="radio" name="subcategories" :value="subcate"
+                <input class="form-check-input" type="radio" name="subcategories" :value="subcate" v-model="selected_subcategory"
                   :id="'sub-cat-'+index" v-on:click="selectSubCategory">
                 <label class="form-check-label" :for="'sub-cat-'+index">
                   {{ subcate }}
