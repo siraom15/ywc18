@@ -104,13 +104,13 @@
               <form v-on:submit.prevent="calculateResultByPrice">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control form-control-sm rounded" min="0" placeholder="ราคาต่ำสุด">
-                  </div>
-                  <div class="col-1">
-                    <p>-</p>
-                  </div>
-                  <div class="col">
-                    <input type="number" class="form-control form-control-sm rounded" min="0" placeholder="ราคาสูงสุด">
+                    <div class="form-group">
+                      <select class="form-control form-control-sm rounded-0" id="" v-on:change="selectPriceRange"
+                        v-model="selected_priceRange">
+                        <option value="-1" selected>เลือกช่วงราคา</option>
+                        <option v-for="(priceRange, index) in data.priceRange" :value="index">{{ priceRange }}</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
                 <button
